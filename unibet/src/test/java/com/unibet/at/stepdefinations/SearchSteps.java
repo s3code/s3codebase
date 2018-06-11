@@ -1,44 +1,85 @@
 package com.unibet.at.stepdefinations;
-import com.unibet.at.pages.Search;
+
+import static org.junit.Assert.assertEquals;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+
+import com.unibet.at.pages.BlogPanel;
+import com.unibet.at.pages.SearchPanel;
+import com.unibet.at.utils.CoreTestUtils;
 
 import common.SharedDriver;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import junit.framework.Assert;
 
-public class SearchSteps extends SharedDriver{
+public class SearchSteps extends SharedDriver {
 	
-	
-	private Search search;
-	
-	public SearchSteps() {
+	public WebDriver Driver;
+
+	private SearchPanel search;
+
+	private CoreTestUtils coreTestUtils;
+	private BlogPanel blog;
+
+	public SearchSteps(/*WebDriver driver */) {
+       	
+	//this.driver = driver;
 		
-		SharedDriver driver = new SharedDriver();
-		search = new Search();
+//		search = new SearchPanel(driver);
+//		coreTestUtils = new CoreTestUtils(driver);
+//		blog = new BlogPanel(driver);
+		
 	}
 	
+	private  void load() {
+		search = new SearchPanel(driver);
+		coreTestUtils = new CoreTestUtils(driver);
+		blog = new BlogPanel(driver);
+	}
 	
 
-	@Given("^I enter the url in browser$")
-	public void i_enter_the_url_in_browser() {
-		System.out.println("*******************I enter the url in browser****************************");
+	@Given("^I open the 'browser'$")
+	public void openTheBrowser() {
 		initialization();
+		load();
+
+	}
+
+	@And("^I enter the blog url$")
+	public void i_enter_the_blog_url() {
+		//blog = new BlogPanel(driver);
+		blog.loadBlogUrl();
+		blog.acceptTheCookies();
+	
+	}
+
+	@And("^I click on the left side 'Floating Dock'$")
+	public void i_click_on_the_left_side_floatingDock() {
+		
+		search.clickOnSearch();
+			
+	}
+
+	@And("I enter '(.+)' in the search field$")
+	public void i_enter_the_world_cup1(String searchItem) {
+	
+		search.enterSearchItem(searchItem);
+	}
+
+	@And("^I press enter key$")
+	public void i_press_enter_keys() {
+		
+		search.enterPostSearchItem();
+		
+		
 	}
 	
-	@And("^I enter the world cup$")
-    public void i_enter_the_world_cup() {
-		System.out.println("*********************i_enter_the_world_cup**********************");
-    }
-	
-	@And("^I enter the world cup1$")
-    public void i_enter_the_world_cup1() {
-		System.out.println("********************************i_enter_the_world_cup************************");
-    }
-	
-	@And("^I enter the world cup2$")
-    public void i_enter_the_world_cup2() {
-		System.out.println("********************************i_enter_the_world_cup************************");
-    }
-	
-	
-	
+	@Given("^Page is loaded$")
+	public void pageisloaded() {
+		
+		assertEquals("Unibet Blog1", search.pageIsLoaded());
+	}
+
 }

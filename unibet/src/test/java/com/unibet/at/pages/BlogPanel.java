@@ -15,42 +15,34 @@ import common.SharedDriver;
 public class BlogPanel extends SharedDriver {
 
 	WebDriver driver;
-	
+
 	private String blogURL = prop.getProperty("blog");
 
 	@FindBy(id = "CybotCookiebotDialogBodyButtonAccept")
-	 WebElement cookiesOkButton;
-	
-	@FindBy(xpath="//*[@id='nav-main']/nav/ul[1]/li[6]/a")
+	WebElement cookiesOkButton;
+
+	@FindBy(xpath = "//*[@id='nav-main']/nav/ul[1]/li[6]/a")
 	WebElement pokerClick;
-	
-	
-	
+
 	public BlogPanel(WebDriver driver) {
-		
+
 		this.driver = driver;
-		
+
 		PageFactory.initElements(driver, this);
 
 	}
 
 	public void loadBlogUrl() {
 
-		System.out.println("This is loadBlogUrl");
 		driver.get(blogURL);
-		
-			}
+
+	}
 
 	public void acceptTheCookies() {
-		System.out.println("This is cookiesButton");
-		//driver.findElement(By.id("CybotCookiebotDialogBodyButtonAccept")).click();
+		
+		if(cookiesOkButton.isDisplayed()) {
 		cookiesOkButton.click();
 		}
-	
-	
-	
-	public void clickPoker() {
-		System.out.println("This is pokerClick");
-		pokerClick.click();
 	}
+
 }

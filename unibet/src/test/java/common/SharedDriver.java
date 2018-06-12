@@ -6,19 +6,25 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.events.WebDriverEventListener;
 
+import com.unibet.at.listeners.WebEventListener;
 import com.unibet.at.utils.CoreTestUtils;
 
 public class SharedDriver {
 
 public static WebDriver driver;
+public static EventFiringWebDriver eventDriver;
+public static WebEventListener webListener;
 	
 	public static Properties prop;
 
@@ -73,6 +79,10 @@ public static WebDriver driver;
 			driver = new FirefoxDriver();
 		}
 
+		eventDriver = new EventFiringWebDriver(driver); 
+		webListener = new WebEventListener(); 
+		
+		eventDriver.register(webListener);
 		
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
@@ -80,6 +90,9 @@ public static WebDriver driver;
 		driver.manage().timeouts().implicitlyWait(CoreTestUtils.IMPLICT_WAIT, TimeUnit.SECONDS);
 
 	    //driver.get(prop.getProperty("blog"));
+		
+		
+		
 		
      return driver;
 
@@ -95,6 +108,8 @@ public static WebDriver driver;
 	public WebDriver getDriver() {
 		return driver;
 	}
+	
+	
 
 	public void exitDriver() {
 		driver.quit();

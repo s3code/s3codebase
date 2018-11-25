@@ -18,7 +18,7 @@ public class Myclasses {
 //		System.setProperty("webdriver.chrome.driver", "C:\\Users\\somen\\eclipse-workspace\\freecrm1.auto\\helpers\\chromedriver_win32\\chromedriver.exe");
 //		WebDriver driver = new ChromeDriver();
 		
-		System.setProperty("webdriver.gecko.driver",System.getProperty("user.dir") + "/helpers/geckodriver-v0.20.1-win64/geckodriver.exe");
+		/*System.setProperty("webdriver.gecko.driver",System.getProperty("user.dir") + "/helpers/geckodriver-v0.20.1-win64/geckodriver.exe");
 		
 		WebDriver driver = new FirefoxDriver();
 		
@@ -30,7 +30,7 @@ public class Myclasses {
 		
 		FileUtils.copyFile(SrcFile, DestFile);
 	
-		driver.close();
+		driver.close();*/
 
 	}
 
